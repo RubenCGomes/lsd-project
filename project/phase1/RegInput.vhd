@@ -28,7 +28,7 @@ begin
 			if (reset = '1') then
 				sTime_adjust <= (others => '0');
 			else 
-				if (Program = '0') then
+				if (program = '0') then
 					crumple_Time <= "001";
 					leaven_Time  <= "010";
 					cook_Time	 <= "001";
