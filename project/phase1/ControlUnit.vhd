@@ -12,10 +12,10 @@ architecture Behavioral of ControlUnit is
 
 	-- times sets for each program
 	constant HOMEMADE_CRUMPLE_TIME, HOMEMADE_COOK_TIME	: std_logic_vector(7 downto 0) := "00001010"; -- 10 s
-	constant HOMEMADE_LEAVEN_TIME								: std_logic_vector(7 downto 0) := "00000100"; -- 4 s
-	constant RUSTIC_CRUMPLE_TIME								: std_logic_vector(7 downto 0) := "00001111"; -- 15 s
-	constant RUSTIC_LEAVEN_TIME								: std_logic_vector(7 downto 0) := "00001000"; -- 8 s
-	constant RUSTIC_COOK_TIME									: std_logic_vector(7 downto 0) := "00001010"; -- 10 s
+	constant HOMEMADE_LEAVEN_TIME						: std_logic_vector(7 downto 0) := "00000100"; -- 4 s
+	constant RUSTIC_CRUMPLE_TIME						: std_logic_vector(7 downto 0) := "00001111"; -- 15 s
+	constant RUSTIC_LEAVEN_TIME							: std_logic_vector(7 downto 0) := "00001000"; -- 8 s
+	constant RUSTIC_COOK_TIME							: std_logic_vector(7 downto 0) := "00001010"; -- 10 s
 
 	type BState is (DEFAULT, CRUMPLE, LEAVEN, COOK); -- define states, add more if necessary
 	signal s_currentState, s_nextState : BState;

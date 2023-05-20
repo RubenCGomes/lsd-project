@@ -4,7 +4,7 @@ use IEEE.NUMERIC_STD.all;
 
 entity TimerAuxFSM is
 	port(reset		: in  std_logic;
-		  clk			: in  std_logic;
+		  clk		: in  std_logic;
 		  newTime	: in  std_logic;
 		  timeVal	: in  std_logic_vector(7 downto 0);
 		  timeExp	: out std_logic);
