@@ -6,7 +6,7 @@ entity RegInput is
 	port(clk			: in std_logic;
 		 reset			: in std_logic;
 		 startStop		: in std_logic;
-		 time_adjust	: in std_logic_vector(7 downto 0);
+		 time_adjust	: in std_logic_vector(7 downto 0); --extra time to end program
 		 program		: in std_logic;
 		 leaven_Time	: out std_logic_vector(2 downto 0);
 		 crumple_Time	: out std_logic_vector(2 downto 0);

@@ -1,24 +1,30 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
 
 entity ControlUnit is
-	port(reset 	: in  std_logic;
-		 clk	: in  std_logic;
-		 status	: in  std_logic
-	);
+	port(reset			: in  std_logic;
+		 clk			: in  std_logic;
+		 status			: in  std_logic;-- start/stop
+		 time_crumple	: in std_logic_vector(7 downto 0);
+		 time_leaven	: in std_logic_vector(7 downto 0);
+		 time_cook		: in std_logic_vector(7 downto 0);
+		 time_extra		: in std_logic_vector(7 downto 0);
+		 time_exp		: in std_logic;
+		 led			: out std_logic;
+		 time_value		: out std_logic_vector(7 downto 0);
+		 new_time		: out std_logic;
+		 time_display	: out std_logic_vector(7 downto 0)
+		 );
 end ControlUnit;
 
 architecture Behavioral of ControlUnit is
 
-	-- times sets for each program
-	constant HOMEMADE_CRUMPLE_TIME, HOMEMADE_COOK_TIME	: std_logic_vector(7 downto 0) := "00001010"; -- 10 s
-	constant HOMEMADE_LEAVEN_TIME						: std_logic_vector(7 downto 0) := "00000100"; -- 4 s
-	constant RUSTIC_CRUMPLE_TIME						: std_logic_vector(7 downto 0) := "00001111"; -- 15 s
-	constant RUSTIC_LEAVEN_TIME							: std_logic_vector(7 downto 0) := "00001000"; -- 8 s
-	constant RUSTIC_COOK_TIME							: std_logic_vector(7 downto 0) := "00001010"; -- 10 s
-
-	type BState is (DEFAULT, CRUMPLE, LEAVEN, COOK); -- define states, add more if necessary
-	signal s_currentState, s_nextState : BState;
+	type BState is (DEFAULT, CRUMPLE, LEAVEN, COOK, FINISH); -- define states, add more if necessary
+	signal s_currentState, s_nextState : BState := DEFAULT;
+	
+	signal s_stateChange	: std_logic := '1';
+	signal s_time_display	: std_logic_vector(7 downto 0);
 	
 begin
 	clk_call : process(clk) -- update when clock is active
@@ -26,26 +32,76 @@ begin
 		if (rising_edge(clk)) then
 			if (reset = '1') then
 				s_currentState <= DEFAULT;
-			else
+			elsif (status = '1') then
+				if (s_currentState /= s_nextState) then
+					s_stateChange <= '1';
+				else
+					s_stateChange <= '0';
+				end if;
 				s_currentState <= s_nextState;
+			elsif (status = '0' and s_currentState /= DEFAULT) then
+				time_display <= (others => '-');
 			end if;
 		end if;
 	end process;
+	
+	new_time <= s_stateChange;
+	time_display <= s_time_display;
+	
 
-	fsm_states : (s_currentState, ) -- TODO: add ports to check!!!
+	fsm_states : process(s_currentState, time_exp) -- TODO: add ports to check!!!
 	begin
 		case(s_currentState)is
 		when DEFAULT =>
-			-- add code...
+			if (status = '1') then
+				s_nextState <= CRUMPLE;
+			else
+				s_nextState <= DEFAULT;
+			s_time_display <= std_logic_vector(unsigned(time_crumple) + unsigned(time_leaven) + 
+								unsigned(time_cook) + unsigned(time_extra));	
+			end if;
 		
 		when CRUMPLE =>
-			-- add code...
+			led <= '1';
+			time_value <= time_crumple;
+			
+			if (time_exp = '1') then
+				s_nextState <= LEAVEN;
+				s_time_display <= std_logic_vector(unsigned(s_time_display) - unsigned(time_crumple));
+			else
+				s_nextState <= CRUMPLE;
+			end if;
 			
 		when LEAVEN =>
-			-- add code...
+			time_value <= time_leaven;
+			
+			if (time_exp = '1') then
+				s_time_display <= std_logic_vector(unsigned(s_time_display) - unsigned(time_leaven));
+				s_nextState <= COOK;
+			else
+				s_nextState <= LEAVEN;
+			end if;	
 			
 		when COOK =>
-			-- add code...
+			time_value <= std_logic_vector(unsigned(time_cook) + unsigned(time_extra));
+			
+			if (time_exp = '1') then
+				s_time_display <= std_logic_vector(unsigned(s_time_display) - unsigned(time_cook) - 
+								unsigned(time_extra));
+				s_nextState <= FINISH;
+			else
+				s_nextState <= COOK;
+			end if;
+		
+		when FINISH =>
+			time_value <= "00000010";
+			
+			if (time_exp = '1') then
+				led <= '0';
+				s_nextState <= DEFAULT;
+			else
+				s_nextState <= FINISH;
+			end if;
 		end case;
 	end process;
 end Behavioral;
