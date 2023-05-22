@@ -5,12 +5,14 @@ use IEEE.NUMERIC_STD.all;
 entity ControlUnit is
 	port(reset			: in  std_logic;
 		 clk			: in  std_logic;
+		 clk_enable		: in std_logic;
 		 status			: in  std_logic;-- start/stop
 		 time_crumple	: in std_logic_vector(7 downto 0);
 		 time_leaven	: in std_logic_vector(7 downto 0);
 		 time_cook		: in std_logic_vector(7 downto 0);
 		 time_extra		: in std_logic_vector(7 downto 0);
 		 time_exp		: in std_logic;
+		 time_delay		: in std_logic_vector(7 downto 0);
 		 led			: out std_logic;
 		 time_value		: out std_logic_vector(7 downto 0);
 		 new_time		: out std_logic;
@@ -29,7 +31,7 @@ architecture Behavioral of ControlUnit is
 begin
 	clk_call : process(clk) -- update when clock is active
 	begin
-		if (rising_edge(clk)) then
+		if (rising_edge(clk) and clk_enable = '1') then
 			if (reset = '1') then
 				s_currentState <= DEFAULT;
 			elsif (status = '1') then
@@ -54,7 +56,10 @@ begin
 		case(s_currentState)is
 		when DEFAULT =>
 			if (status = '1') then
-				s_nextState <= CRUMPLE;
+				time_value <= time_delay;
+				if(time_exp = '1') then
+					s_nextState <= CRUMPLE;
+				end if;
 			else
 				s_nextState <= DEFAULT;
 			s_time_display <= std_logic_vector(unsigned(time_crumple) + unsigned(time_leaven) + 

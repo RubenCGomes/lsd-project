@@ -3,9 +3,10 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.NUMERIC_STD.all;
 
 entity ROM_5x8_breadTime is
-	port(clk     : in std_logic;
-		  address : in std_logic_vector(2 downto 0);
-		  dataOut : out std_logic_vector(7 downto 0));
+	port(clk     	: in std_logic;
+		 clk_enable	: in std_logic;
+		 address 	: in std_logic_vector(2 downto 0);
+		 dataOut 	: out std_logic_vector(7 downto 0));
 end ROM_5x8_breadTime;
 
 architecture Behavioral of ROM_5x8_breadTime is
@@ -21,7 +22,7 @@ architecture Behavioral of ROM_5x8_breadTime is
 begin
 	process(clk)
 	begin
-		if(rising_edge(clk)) then
+		if(rising_edge(clk) and clk_enable = '1') then
 			dataOut <= memory(to_integer(unsigned(address)));
 		end if;
 	end process;

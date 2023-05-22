@@ -8,25 +8,26 @@ entity RegInput is
 		 startStop		: in std_logic;
 		 time_adjust	: in std_logic_vector(7 downto 0); --extra time to end program
 		 program		: in std_logic;
+		 time_delay		: in std_logic_vector(7 downto 0);
 		 leaven_Time	: out std_logic_vector(2 downto 0);
 		 crumple_Time	: out std_logic_vector(2 downto 0);
 		 cook_Time		: out std_logic_vector(2 downto 0);
 		 time_toAdjust	: out std_logic_vector(7 downto 0);
 		 fsmEnable		: out std_logic
+		 time_ToDelay	: out std_logic_vector(7 downto 0);
 		 );
 end RegInput;
 
 architecture Behavioral of RegInput is
 
 	signal startStop_state	: std_logic := '0';
-	signal sTime_adjust		: std_logic_vector(7 downto 0);
 	
 begin
 	process(clk)
 	begin
 		if (rising_edge(clk)) then
 			if (reset = '1') then
-				sTime_adjust <= (others => '0');
+				time_toAdjust <= (others => '0');
 			else 
 				if (program = '0') then
 					crumple_Time <= "001";
@@ -47,7 +48,7 @@ begin
 			end if;
 		end if;
 		fsmEnable <= startStop_state;
-		time_toAdjust <= sTime_adjust;
+		time_toAdjust <= time_adjust;
 	end process;
 end Behavioral;
 	

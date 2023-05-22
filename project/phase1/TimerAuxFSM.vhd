@@ -5,6 +5,7 @@ use IEEE.NUMERIC_STD.all;
 entity TimerAuxFSM is
 	port(reset		: in  std_logic;
 		  clk		: in  std_logic;
+		  clk_enable: in  std_logic;
 		  newTime	: in  std_logic;
 		  timeVal	: in  std_logic_vector(7 downto 0);
 		  timeExp	: out std_logic);
@@ -18,7 +19,7 @@ architecture Behavioral of TimerAuxFSM is
 begin
 	process(clk)
 	begin
-		if (rising_edge(clk)) then
+		if (rising_edge(clk) and clk_enable = '1') then
 			if (reset = '1') then
 				s_counter <= (others => '1');
 				s_cntZero <= '0';
