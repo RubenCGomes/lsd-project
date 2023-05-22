@@ -6,3 +6,4 @@
 LSD_2022_2023_Proj_7.pdf
 /project/phase1/output_files/
 *.bak
+/project/phase1/incremental_db/
