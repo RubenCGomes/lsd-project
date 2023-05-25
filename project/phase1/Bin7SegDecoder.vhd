@@ -29,6 +29,5 @@ begin
 						  "0001110" when "1111",   --F
 						  "1000000" when others;   --0
 
-	decOut_n <= s_decOut_n when (enable = '1') else
-				"1111111";
+	decOut_n <= s_decOut_n;
 end RTL;
