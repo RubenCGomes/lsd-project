@@ -8,11 +8,7 @@ entity BreadMachine is
 		 SW			: in std_logic_vector(0 downto 0);
 		 LEDR		: out std_logic_vector(0 downto 0);
 		 LEDG		: out std_logic_vector(2 downto 0);
-		 HEX0		: out std_logic_vector(6 downto 0);
-		 HEX1		: out std_logic_vector(6 downto 0);
-		 HEX4		: out std_logic_vector(6 downto 0);
-		 HEX6		: out std_logic_vector(6 downto 0);
-		 HEX7		: out std_logic_vector(6 downto 0)
+		 HEX0, HEX1, HEX4, HEX6, HEX7		: out std_logic_vector(6 downto 0)
 		 );
 end BreadMachine;
 
@@ -51,8 +47,7 @@ architecture Shell of BreadMachine is
 	signal s_TimeFromTimerDisplay	: std_logic_vector(7 downto 0);
 	signal s_timeToDisplay : std_logic_vector(7 downto 0);
 	signal s_timeAdjustToDisplay : std_logic_vector(7 downto 0);
-	signal s_timeDelay : std_logic_vector(7 downto 0);
-	signal s_TimeExtraToDisplay : std_logic_vector(7 downto 0);
+	signal S_TimeDelayToDisplay : std_logic_vector(7 downto 0);
 	
 begin
 
@@ -77,11 +72,11 @@ begin
 						 program => SW(0),
 						 orderToStop => s_orderToStop,
 						 --Outputs
-						 time_toCook => s_RegisterTimeCook,
+						 time_toCook => s_RegisterTimeCook, --go directly to Display4 as well to FSM
 						 leaven_Time => s_time_Getleaven,	
 						 crumple_Time => s_time_Getcrumple, -- getTimes from ROM
 						 cook_Time => s_time_Getcook,
-						 time_ToDelay => s_timeToDelay, -- time to delay fsm start
+						 time_ToDelay => s_timeToDelay, -- time to delay fsm start and goes to Display6
 						 fsmEnable => s_status);
 	
 	--Rom to get the time values
@@ -153,7 +148,7 @@ begin
 	--time to Delay FSM start
 	timeDelayToDisplay : entity work.ShowTimeToDisplay(Behavioral)
 				port map(input => s_TimeToDelay,
-						 output => S_TimeExtraToDisplay);
+						 output => s_TimeDelayToDisplay);
 			
 	--Main Display
 	display1 : entity work.Bin7SegDecoder(RTL)
@@ -171,11 +166,11 @@ begin
 					
 	--Display to show the time to Delay FSM start		
 	display6 : entity work.Bin7SegDecoder(RTL)
-				port map(binInput => s_timeDelay(3 downto 0),
+				port map(binInput => S_TimeDelayToDisplay(3 downto 0),
 						 decOut_n => HEX6(6 downto 0));
 	
 	display7 : entity work.Bin7SegDecoder(RTL)
-				port map(binInput => s_timeDelay(7 downto 4),
+				port map(binInput => S_TimeDelayToDisplay(7 downto 4),
 						 decOut_n => HEX7(6 downto 0));
 end Shell;
 						 

@@ -24,16 +24,11 @@ begin
 			if (reset = '1') then
 				s_counter <= (others => '1');
 				s_cntZero <= '0';
-			elsif (timeEnable = '1') then
+			elsif (timeEnable = '0') then
 				s_counter <= unsigned(timeVal) - 1;
 				s_cntZero <= '0';
 			else
-				if (s_counter = "00000000") then
-					s_cntZero <= '1';
-				else
-					s_counter <= s_counter  - 1;
-					s_cntZero <= '0';
-				end if;
+				s_counter <= s_counter  - 1;
 			end if;
 		end if;
 	end process;

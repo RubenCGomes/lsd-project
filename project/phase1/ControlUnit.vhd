@@ -66,9 +66,9 @@ begin
 				end if;
 			else
 				s_nextState <= STANDBY;
+			end if;	
 			s_time_display <= std_logic_vector(unsigned(time_crumple) + unsigned(time_leaven) + 
 								unsigned(time_cook) + unsigned(time_extra));	
-			end if;
 		
 		when CRUMPLE =>
 			timerEnable <= '1';
