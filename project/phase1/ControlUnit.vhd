@@ -12,107 +12,136 @@ entity ControlUnit is
 		 time_cook		: in std_logic_vector(7 downto 0);
 		 time_extra		: in std_logic_vector(7 downto 0);
 		 time_exp		: in std_logic;
+		 delayExp		: in std_logic;
 		 time_delay		: in std_logic_vector(7 downto 0);
-		 led			: out std_logic;
+		 current_time	: in std_logic_vector(7 downto 0);
+		 led			: out std_logic := '0';
 		 ledg			: out std_logic_vector(2 downto 0);
 		 time_value		: out std_logic_vector(7 downto 0);
+		 timerEnable	: out std_logic;
 		 new_time		: out std_logic;
-		 time_display	: out std_logic_vector(7 downto 0);
-		 orderToStop	: out std_logic := '0';
-		 timerEnable	: out std_logic
+		 delay_enable	: out std_logic;
+		 delayToTimer	: out std_logic_vector(7 downto 0);
+		 orderToStop	: out std_logic
 		 );
 end ControlUnit;
 
 architecture Behavioral of ControlUnit is
 
-	type BState is (STANDBY, CRUMPLE, LEAVEN, COOK, FINISH); -- define states, add more if necessary
+	type BState is (STANDBY, DELAY, CRUMPLE, LEAVEN, COOK, FINISH); -- define states, add more if necessary
 	signal s_currentState, s_nextState : BState := STANDBY;
 	
 	signal s_stateChange	: std_logic := '1';
 	signal s_time_display	: std_logic_vector(7 downto 0);
-	
+	signal s_currentTime	: unsigned(7 downto 0);
 	
 begin
-	clk_call : process(clk) -- update when clock is active
+	s_currentTime <= unsigned(current_time);
+	clk_call : process(clk) -- update when clock is active 
 	begin
-		if (rising_edge(clk) and clk_enable = '1') then
+		if (rising_edge(clk)) then
 			if (reset = '1') then
 				s_currentState <= STANDBY;
-			elsif (status = '1') then
-				if (s_currentState /= s_nextState) then
-					s_stateChange <= '1';
-				else
-					s_stateChange <= '0';
-				end if;
+			else 
 				s_currentState <= s_nextState;
-			elsif (status = '0' and s_currentState /= STANDBY) then
-				time_display <= (others => '-');
+			end if;
+			if (s_currentState /= s_nextState) then
+				s_stateChange <= '1';
+			else
+				s_stateChange <= '0';
 			end if;
 		end if;
 	end process;
-	
-	new_time <= s_stateChange;
-	time_display <= s_time_display;
-	
 
+	time_value <= std_logic_vector(unsigned(time_crumple) + unsigned(time_leaven) + 
+								unsigned(time_cook) + unsigned(time_extra));	
+	delay_enable <= s_stateChange;
+	
 	fsm_states : process(s_currentState, time_exp)
 	begin
+		orderToStop <= '0';
 		case(s_currentState)is
 		when STANDBY =>
+			new_time <= '1';
+			timerEnable <= '0';
+			led <= '0';
+			ledg <= (others => '0');
 			if (status = '1') then
-				time_value <= time_delay;
-				if(time_exp = '1') then
-					s_nextState <= CRUMPLE;
-				end if;
+				s_nextState <= DELAY;
 			else
 				s_nextState <= STANDBY;
 			end if;	
-			s_time_display <= std_logic_vector(unsigned(time_crumple) + unsigned(time_leaven) + 
-								unsigned(time_cook) + unsigned(time_extra));	
+			
+		when DELAY =>
+			new_time <= '0';
+			if (delay_enable = '1') then
+				delayToTimer <= time_delay;
+			end if;
+			if (delayExp = '1') then
+				s_nextState <= CRUMPLE;
+			else
+				s_nextState <= DELAY;
+			end if;
 		
 		when CRUMPLE =>
-			timerEnable <= '1';
+			new_time <= '0';
+			
+			if (status = '1') then
+				timerEnable <= '1';
+			else
+				timerEnable <= '0';
+			end if;
+				
 			led <= '1';
-			time_value <= time_crumple;
 			ledg(2 downto 0) <= (others => '1');
 			
-			if (time_exp = '1') then
+			if (s_currentTime = unsigned(time_value) - unsigned(time_crumple) - unsigned(time_extra) - 1) then
 				s_nextState <= LEAVEN;
-				ledg(2) <= '0';
 			else
 				s_nextState <= CRUMPLE;
 			end if;
 			
 		when LEAVEN =>
-			time_value <= time_leaven;
-			
-			if (time_exp = '1') then
+			new_time <= '0';
+			if (status = '1') then
+				timerEnable <= '1';
+			else
+				timerEnable <= '0';
+			end if;
+				
+			led <= '1';
+			ledg(2) <= '0';
+			ledg(1 downto 0) <= (others => '1');
+			if (s_currentTime = unsigned(time_value) - unsigned(time_crumple) - unsigned(time_leaven) - unsigned(time_extra) - 1) then
 				s_nextState <= COOK;
-				ledg(1) <= '0';
  			else
 				s_nextState <= LEAVEN;
-			end if;	
+			end if;
 			
 		when COOK =>
-			time_value <= std_logic_vector(unsigned(time_cook) + unsigned(time_extra));
-			
+			new_time <= '0';
+			if (status = '1') then
+				timerEnable <= '1';
+			else
+				timerEnable <= '0';
+			end if;
+				
+			ledg(2 downto 1) <= (others => '0');
+			ledg(0) <= '1';
+			led <= '1';
 			if (time_exp = '1') then
 				s_nextState <= FINISH;
-				ledg(0) <= '0';
 			else
 				s_nextState <= COOK;
 			end if;
 		
 		when FINISH =>
-			time_value <= "00000010";
-			
-			if (time_exp = '1') then
-				led <= '0';
-				s_nextState <= STANDBY;
-				orderToStop <= '1';
-			else
-				s_nextState <= FINISH;
-			end if;
+			new_time <= '0';
+			orderToStop <= '1';
+			timerEnable <= '0';
+			ledg <= (others => '0');
+			led <= '0';
+			s_nextState <= STANDBY;
 		end case;
 	end process;
 end Behavioral;

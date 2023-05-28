@@ -5,5 +5,5 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
-vcom -2008 -work work {C:/Users/Joao_/Desktop/UA/lsd-project/project/phase1/ControlUnit.vhd}
+vcom -2008 -work work {/home/rubeng/Documents/UAlinux/LSD/lsd-project/project/phase1/RegInput.vhd}
 

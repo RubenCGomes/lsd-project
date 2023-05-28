@@ -14,7 +14,7 @@ end TimerToDisplay;
 
 architecture Behavioral of TimerToDisplay is
 
-	signal s_counter : unsigned(7 downto 0) := (others => '1');
+	signal s_counter : unsigned(7 downto 0) := unsigned(timeVal);
 	signal s_cntZero : std_logic := '0';
 
 begin
@@ -22,10 +22,9 @@ begin
 	begin
 		if (rising_edge(clk) and clk_enable = '1') then
 			if (reset = '1') then
-				s_counter <= (others => '1');
+				s_counter <= unsigned(timeVal);
 				s_cntZero <= '0';
 			elsif (timeEnable = '0') then
-				s_counter <= unsigned(timeVal) - 1;
 				s_cntZero <= '0';
 			else
 				s_counter <= s_counter  - 1;

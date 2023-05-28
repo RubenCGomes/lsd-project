@@ -6,7 +6,6 @@ entity RegInput is
 	port(clk			: in std_logic;
 		 clk_enable		: in std_logic;
 		 reset			: in std_logic;
-		 orderToStop	: in std_logic; -- orderm from FSM when it's program ends
 		 startStop		: in std_logic;
 		 time_Cook		: in std_logic_vector(7 downto 0); --extra time to end program
 		 time_Delay		: in std_logic_vector(7 downto 0); --Time to delay start
@@ -27,9 +26,10 @@ architecture Behavioral of RegInput is
 begin
 	process(clk)
 	begin
-		if (rising_edge(clk) and clk_enable ='1') then
+		if (rising_edge(clk)) then
 			if (reset = '1') then
 				time_toCook <= (others => '0');
+				time_ToDelay <= (others => '0');
 			else 
 				if (program = '0') then
 					crumple_Time <= "001";
@@ -41,19 +41,10 @@ begin
 					cook_Time 	 <= "001";
 				end if;
 			end if;
-			if (startStop = '1') then
-				if	(startStop_state = '0') then
-					startStop_state <= '1';
-				else
-					if(orderToStop = '1') then -- if fsm ended it's program then startStop should change to 1
-						startStop_state <= '0';
-					end if;
-					startStop_state <= '0';
-				end if;
-			end if;
 		end if;
 		
-		fsmEnable <= startStop_state;
+		time_ToDelay <= time_Delay;
+		fsmEnable <= startStop;
 		time_toCook <= time_Cook;
 	end process;
 end Behavioral;	 
