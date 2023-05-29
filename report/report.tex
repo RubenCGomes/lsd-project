@@ -1,0 +1,48 @@
+% Preamble
+\documentclass{report}
+
+% Packages
+\usepackage{amsmath}
+\usepackage[T1]{fontenc} % Fontes T1
+\usepackage[utf8]{inputenc} % Input UTF8
+\usepackage[backend=biber, style=ieee]{biblatex} % para usar bibliografia
+\usepackage{csquotes}
+\usepackage[portuguese]{babel} %Usar língua portuguesa
+\usepackage{blindtext}
+\usepackage{graphicx} % Gerar texto automaticamente
+\usepackage{geometry}
+
+% Document
+\begin{document}
+    % Define keybinds
+    \def\title{\textbf{MÁQUINA DE FAZER PÃO}}
+    \def\authors{João Bastos (113470), Rúben Gomes(113435)}
+    \def\contacts{(113470) joaop.bastos@ua.pt, (113435) rlcg@ua.pt}
+    \def\department{Departamento de Eletrónica, Telecomunicações e Informática}
+    \def\university{Universidade de Aveiro}
+    \def\logo{ua.pdf}
+
+
+    % Header
+    \fancyhead{
+        \begin{center}
+            \includegraphics{\logo}\\
+            \textbf{{\LARGE \title}}\\
+            \vspace{2mm}
+            \Large Trabalho realizado por: \authors.\\
+        \end{center}
+    }
+
+    % Introduction
+    \section{Introdução}\label{sec:introducao}
+    Este projeto visa a implementar uma máquina de fazer pão, que permita ao utilizador escolher o tipo de pão que pretende fazer. \ Para tal, é necessário que o programa tenha uma máquina de estados finitos que permita ao utilizador escolher o tipo de pão a ser fabricado facilmente, bem como adicionar tempo extra de cozedura e/ou tempo prévio de espera para iniciar a máquina.\\
+    \par Para tornar este projeto possível, pretendemos implementar uma máquina de estados, e os seus componentes necessários em linguagem de \textit{hardware} \ac{VHDL}, de forma a aplicar a matéria lecionada em Laboratório de Sistemas Digitais(LSD)
+
+
+
+
+
+    \begin{flushright}
+        \today
+    \end{flushright}
+\end{document}
