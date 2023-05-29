@@ -15,12 +15,10 @@ architecture Behavioral of ShowTimeToDisplay is
 	signal s_dec : integer;
 
 begin
-	process(input)
-	begin
-		s_dec <= s_int / 10;
-		s_out(7 downto 4) <= std_logic_vector(to_unsigned(s_dec, 4));
-		s_out(3 downto 0) <= std_logic_vector(to_unsigned(s_int - s_dec * 10, 4));
-	end process;
-	
+
+	s_dec <= s_int / 10;
+	s_out(7 downto 4) <= std_logic_vector(to_unsigned(s_dec, 4));
+	s_out(3 downto 0) <= std_logic_vector(to_unsigned(s_int - s_dec * 10, 4));	
+		
 	output <= s_out;
 end Behavioral;

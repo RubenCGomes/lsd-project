@@ -10,22 +10,14 @@ entity ToggleSwitch is
 end ToggleSwitch;
 
 architecture Behavioral of ToggleSwitch is
-	signal current_state : std_logic := '1';
-	signal s_toggle		 : std_logic;
+	signal current_state : std_logic;
 begin
 	process(toggle, reset, orderToStop)
 	begin
-	s_toggle <= toggle;
 		if (reset = '1' or orderToStop = '1') then
-			s_toggle <= '1';
-			current_state <= '1';
-		end if;
-		if (s_toggle = '1') then
-			if (current_state = '1') then
-				current_state <= '0';
-			else
-				current_state <= '1';
-			end if;
+			current_state <= '0';
+		elsif (toggle = '1') then
+			current_state <= not current_state;
 		end if;
 	end process;
 	startStop <= current_state;
