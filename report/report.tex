@@ -11,6 +11,7 @@
 \usepackage{graphicx} % Gerar texto automaticamente
 \usepackage{geometry}
 \usepackage{float}
+\usepackage{hyperref}
 \usepackage{indentfirst}
 \usepackage[printonlyused]{acronym}
 \usepackage{ragged2e}
@@ -41,13 +42,13 @@
 
     % Introduction
     \section{Introdução}\label{sec:introducao}
-        \par Este projeto visa a implementar uma máquina de fazer pão, que permita ao utilizador escolher o tipo de pão que pretende fazer. \ Para tal, é necessário que o programa tenha uma máquina de estados finitos que permita ao utilizador escolher o tipo de pão a ser fabricado facilmente, bem como adicionar tempo extra de cozedura e/ou tempo prévio de espera para iniciar a máquina.\\
+        \par Este projeto visa implementar uma máquina de fazer pão, que permita ao utilizador escolher o tipo de pão que pretende fazer. \ Para tal, é necessário que o programa tenha uma máquina de estados finitos que permita ao utilizador escolher o tipo de pão a ser fabricado facilmente, bem como adicionar tempo extra de cozedura e/ou tempo prévio de espera para iniciar a máquina.\\
 
         Para tornar este projeto possível, pretendemos implementar uma máquina de estados, e os seus componentes necessários em linguagem de \textit{hardware} \acs{vhdl} e desenvolvido no software Quartus\textregistered Prime, de forma a aplicar a matéria lecionada na cadeira de \acs{lsd}.
 
     % Architecture
     \section{Arquitetura}\label{sec:arquitetura}
-        \par A arquitetura deste projeto é divisível em várias partes distintas, que, logicamente, são complementares para o resultado do projeto. \ Estas serão descritas abaixo da Figura 1. \\
+        \par A arquitetura deste projeto é divisível em várias partes distintas, que, logicamente, são complementares para o resultado do projeto. \ Estas serão descritas abaixo da Figura~\ref{fig:bread-machine}. \\
 
         \begin{figure}[H]
             \label{fig:bread-machine}
@@ -61,7 +62,7 @@
             \item[\textbf{\textrightarrow}] \textbf{ToggleSwitch} - O componente ToggleSwitch é usado para começar/parar a máquina de pão a qualquer momento, simulando um \textit{switch}.
             \item[\textbf{\textrightarrow}] \textbf{ClkDividerN} - Este componente é responsável por dividir o sinal de \textit{clock} por um determinado valor, de forma a que seja enviado um puslo  de um certo valor de Hertz. \ Por motivos de estar em causa um temporizador, este tem de ser dividido de forma a gerar um pulso de 1 Hz.
             \item[\textbf{\textrightarrow}] \textbf{DebounceUnit} - O seguinte componente é usado para controlar o uso de um botão. \ Um botão em uma FPGA manda centenas de sinais ao ser clicada. \ Ao usar este componente, é possível controlar o número de sinais enviados, de forma a que o botão seja ativado apenas uma vez, sem repetições.
-            \item[\textbf{\textrightarrow}] \textbf{ROM\_5x8\_breadTime} - É uma memória que armazena 5 palavras de 8 bits, sendo cada palavra o tempo de um programa (como tempo de cozedura de pão rústico, por exemplo), que serão enviados para a State Machine(mais sobre a mesma na~\ref{finite-states})
+            \item[\textbf{\textrightarrow}] \textbf{ROM\_5x8\_breadTime} - É uma memória que armazena 5 palavras de 8 bits, sendo cada palavra o tempo de um programa (como tempo de cozedura de pão rústico, por exemplo), que serão enviados para a State Machine(mais sobre a mesma na Figura~\ref{finite-states})
             \item[\textbf{\textrightarrow}] \textbf{ShowTimeToDisplay} - O seguinte bloco tem como proveito receber uma palavra de 8 bits, neste caso de um temporizador, e convertê-la em dois vetores \textit{standard logic} de 4 bits, sendo um vetor o valor das dezenas, e outro o valor das unidades, e enviá-lo para um descodificador de um \textit{display} de 7 segmentos.
             \item[\textbf{\textrightarrow}] \textbf{Bin7SegDecoder} - Este bloco descodifica uma palavra de 4 bits para um \textit{display} de 7 segmentos, de forma a que seja possível mostrar o valor decimal.
         \end{itemize}
