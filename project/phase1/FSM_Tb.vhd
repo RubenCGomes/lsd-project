@@ -54,6 +54,17 @@ begin
 			 ledg			=> s_ledg,
 			 delayNewTime	=> s_delayNewTime 
 		); 
+		
+	timer: entity work.TimerAuxFSM(Behavioral)
+		port map(clk		=> s_clk,
+				 clk_enable => s_clk_enable,
+				 reset		=> s_reset,
+				 timeEN		=> s_timerEnable,
+				 new_time	=> s_new_time,
+				 timeVal 	=> s_time_value,
+				 timeExp	=> s_time_exp,
+				 timeCounter	=> s_current_time
+				 );
  
 	--Clock 50MHz process
 	clock_proc : process
@@ -68,9 +79,9 @@ begin
 	clock1Hz_proc : process
 	begin
 		s_clk_enable <= '0';
-		wait for 1 sec;
+		wait for 100000 ms;
 		s_clk_enable <= '1';
-		wait for 1 sec;
+		wait for 100000 ms;
 	end process;
 	
 	--Process stim 
@@ -79,9 +90,9 @@ begin
 		s_reset <= '0';
 		wait for 100 ns; 
 		s_status <= '1';
-		wait for 5 sec;
+		wait for 5000 ms;
 		s_status <= '0';
-		wait for 2 sec;
+		wait for 2000 ms;
 		s_reset <= '1';	 
 	end process; 
 end Stimulus;
