@@ -1,0 +1,254 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdftex 2023.5.31)  6 JUN 2023 09:00
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**report.tex
+(./report.tex
+! Undefined control sequence.
+l.2 \documentclass
+                  {article}
+? 
+! Undefined control sequence.
+l.5 \usepackage
+               [T1]{fontenc} % Fontes T1
+? 
+! Undefined control sequence.
+l.6 \usepackage
+               [utf8]{inputenc} % Input UTF8
+? 
+! Undefined control sequence.
+l.7 \usepackage
+               [backend=biber, style=ieee]{biblatex} % para usar bibliografia
+? 
+! Undefined control sequence.
+l.8 \usepackage
+               {csquotes}
+? 
+! Undefined control sequence.
+l.9 \usepackage
+               [portuguese]{babel} %Usar l√≠ngua portuguesa
+? 
+! Undefined control sequence.
+l.10 \usepackage
+                {blindtext}
+? 
+! Undefined control sequence.
+l.11 \usepackage
+                {graphicx} % Gerar texto automaticamente
+? 
+! Undefined control sequence.
+l.12 \usepackage
+                {geometry}
+? 
+! Undefined control sequence.
+l.13 \usepackage
+                {float}
+? 
+! Undefined control sequence.
+l.14 \usepackage
+                {hyperref}
+? 
+! Undefined control sequence.
+l.15 \usepackage
+                {indentfirst}
+? 
+! Undefined control sequence.
+l.16 \usepackage
+                [printonlyused]{acronym}
+? 
+! Undefined control sequence.
+l.17 \usepackage
+                {ragged2e}
+? 
+! Undefined control sequence.
+l.18 \usepackage
+                {textcomp}
+? 
+! Undefined control sequence.
+l.19 \usepackage
+                {multicol}
+? 
+
+Overfull \hbox (10.77374pt too wide) in paragraph at lines 5--20
+[]\tenrm [T1]fontenc [utf8]inputenc [back-end=biber, style=ieee]biblatex csquot
+es [por-tuguese]babel blind-text graph-|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm [
+.\tenrm T
+.\tenrm 1
+.\tenrm ]
+.etc.
+
+! Undefined control sequence.
+l.22 \begin
+           {document}
+? 
+! Undefined control sequence.
+l.34     \fancyhead
+                   {
+? 
+! Undefined control sequence.
+l.35         \begin
+                   {center}
+? 
+! Undefined control sequence.
+l.36             \includegraphics
+                                 {ua}\\
+? 
+! Argument of \\ has an extra }.
+<inserted text> 
+                \par 
+<to be read again> 
+                   }
+l.41     }
+          
+? 
+Runaway argument?
+ \textbf {{\LARGE \title }}\\ \vspace {2mm} \large Trabalho realizado\ETC.
+! Paragraph ended before \\ was complete.
+<to be read again> 
+                   \par 
+<to be read again> 
+                   }
+l.41     }
+          
+? 
+! Undefined control sequence.
+l.44     \section
+                 {Introdu√ß√£o}\label{sec:introducao}
+? 
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ß in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no £ in font cmr10!
+! Undefined control sequence.
+l.44     \section{Introdu√ß√£o}\label
+                                     {sec:introducao}
+? 
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ° in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no £ in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no £ in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no © in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ° in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ° in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no £ in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no © in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ° in font cmr10!
+Runaway argument?
+ 
+! Paragraph ended before \\ was complete.
+<to be read again> 
+                   \par 
+l.46 
+     
+? 
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ≠ in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ° in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ° in font cmr10!
+! Undefined control sequence.
+l.47 ...entes necess√°rios em linguagem de \textit
+                                                  {hardware} \acs{vhdl} e de...
+
+? 
+! Undefined control sequence.
+l.47 ...ios em linguagem de \textit{hardware} \acs
+                                                  {vhdl} e desenvolvido no s...
+
+? 
+! Undefined control sequence.
+l.47 ...volvido no software Quartus\textregistered
+                                                   Prime, de forma a aplicar...
+
+? 
+Missing character: There is no √ in font cmr10!
+Missing character: There is no © in font cmr10!
+! Undefined control sequence.
+l.47 ...ar a mat√©ria lecionada na cadeira de \acs
+                                                  {lsd}.
+? 
+! Undefined control sequence.
+l.50     \section
+                 {Arquitetura}\label{sec:arquitetura}
+? 
+! Undefined control sequence.
+l.50     \section{Arquitetura}\label
+                                    {sec:arquitetura}
+? 
+Missing character: There is no √ in font cmr10!
+Missing character: There is no © in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ≠ in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ° in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no £ in font cmr10!
+Missing character: There is no √ in font cmr10!
+Missing character: There is no £ in font cmr10!
+! Undefined control sequence.
+l.51 ...tas ser√£o descritas abaixo da Figura~\ref
+                                                  {fig:bread-machine}. \\
+? 
+Runaway argument?
+ 
+! Paragraph ended before \\ was complete.
+<to be read again> 
+                   \par 
+l.52 
+     
+? 
+! Undefined control sequence.
+l.53         \begin
+                   {figure}[H]
+? 
+! Undefined control sequence.
+l.54             \label
+                       {fig:bread-machine}
+? 
+! Undefined control sequence.
+l.56             \includegraphics
+                                 [scale=0.6]{BreadMachine3}
+? 
+! Missing number, treated as zero.
+<to be read again> 
+                   [
+l.56             \includegraphics[
+                                  scale=0.6]{BreadMachine3}
+? 
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   [
+l.56             \includegraphics[
+                                  scale=0.6]{BreadMachine3}
+? 
+! Undefined control sequence.
+l.57             \caption
+                         {Figura representativa do \textit{top-level} do pro...
+
+? 
+! Undefined control sequence.
+l.57 ... \caption{Figura representativa do \textit
+                                                  {top-level} do projeto}
+? 
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] )</usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on report.pdf (1 page, 21501 bytes).
+PDF statistics:
+ 12 PDF objects out of 1000 (max. 8388607)
+ 7 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.10.11)  31 MAY 2023 02:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.5.31)  6 JUN 2023 09:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -691,11 +691,12 @@ Package biblatex Info: Automatic encoding selection.
 \openout3 = `report.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'report.bbl' not found.
+Package biblatex Info: ... file 'report.bbl' found.
 
-No file report.bbl.
+(/home/rubeng/Documents/UAlinux/LSD/lsd-project/out/report.bbl)
 Package biblatex Info: Reference section=0 on input line 22.
 Package biblatex Info: Reference segment=0 on input line 22.
+
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count442
@@ -860,8 +861,8 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 18819 strings out of 480186
- 329714 string characters out of 5894354
+ 18821 strings out of 480186
+ 329836 string characters out of 5894355
  1054477 words of memory out of 5000000
  36539 multiletter control sequences out of 15000+600000
  476019 words of font info for 38 fonts, out of 8000000 for 9000
@@ -878,7 +879,7 @@ crm1000.600pk> </home/rubeng/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec
 ec/ecrm1200.600pk> </home/rubeng/.texlive2021/texmf-var/fonts/pk/ljfour/jknappe
 n/ec/ecbx1728.600pk>
 Output written on /home/rubeng/Documents/UAlinux/LSD/lsd-project/out/report.pdf
- (5 pages, 1418035 bytes).
+ (5 pages, 1418040 bytes).
 PDF statistics:
  398 PDF objects out of 1000 (max. 8388607)
  117 compressed objects within 2 object streams
