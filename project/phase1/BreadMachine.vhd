@@ -68,7 +68,8 @@ begin
 						 pulsedOut	=> s_debounce);
 						 
 	toggleSwitch : entity work.ToggleSwitch(Behavioral)
-				port map(toggle 		=> s_debounce,
+				port map(clk 			=> CLOCK_50,
+						 toggle 		=> s_debounce,
 						 orderToStop	=> s_orderToStop,
 						 reset			=> not KEY(2),
 						 startStop		=> s_toggle);
